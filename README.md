@@ -1,4 +1,5 @@
 # miniraft
+
 ### A <1kloc, well-documented Raft consensus algorithm implementation
 
 This crate is a minimal implementation of the Raft consensus protocol with a focus on readability/understandability.
@@ -10,5 +11,3 @@ of Raft.
 
 This project was created as an exercise in implementing and learning about distributed systems. **Do NOT use this in production.**
 
-- [Crate Documentation](https://jzhao.xyz/miniraft/miniraft)
-- [Specification](https://raft.github.io/raft.pdf)

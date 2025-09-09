@@ -35,8 +35,6 @@ fn appending_to_three_logs_is_ok() {
     assert_eq!(lead.log.applied_len, 0);
     assert_eq!(lead.log.app.get_state(), 0);
 
-    // three ticks, one to propagate request another to propagate response
-    // and another to propagate request from leader with updated commited_len
     cluster.tick_by(3);
     lead = cluster.get_leader_mut().unwrap();
 
