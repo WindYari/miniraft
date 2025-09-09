@@ -278,9 +278,6 @@ where
                 Ok(())
             }
             _ => {
-                // we aren't a leader so not authorized to add to the replicated log
-                // respond to client by saying we are not the leader. client is responsible
-                // for trying again with a different server
                 bail!("cannot add a log entry to a non-leader!")
 
                 // in a more robust implementation, client requests would generate a unique
@@ -334,7 +331,6 @@ where
         }
     }
 
-    /// Process an RPC Request to vote for requesting candidate
     fn rpc_vote_request(&mut self, req: &VoteRequest) -> Vec<SendableMessage<T>> {
         Logger::rpc_vote_request(&self, req);
 
@@ -343,8 +339,6 @@ where
             self.reset_to_follower(req.candidate_term);
         }
 
-        // check if candidate's log is up to date with ours
-        // if they are outdated, don't vote for them (we don't want an outdated leader)
         let candidate_has_more_recent_log = req.candidate_last_log_term > self.log.last_term();
         let candidate_has_longer_log = req.candidate_last_log_term == self.log.last_term()
             && req.candidate_last_log_idx >= self.log.last_idx();
